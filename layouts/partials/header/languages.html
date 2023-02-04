@@ -5,10 +5,10 @@
 </li>
 <li class="nav-item dropdown py-1 py-xxl-1 col-6 col-xxl-auto">
     <a class="nav-link px-0 px-xxl-1" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <button class="btn btn-light border-0 p-1 pt-0 pb-0 m-0">
+        <!-- <button class="btn rounded border-0 p-1 pt-0 pb-0 m-0"> -->
             <i class="{{ .Language.Params.icon }} p-0 m-0"></i>
             {{ .Language.LanguageName }}
-        </button>
+        <!-- </button> -->
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
         {{- range $.Site.Home.AllTranslations }}

@@ -3,8 +3,7 @@
 {{- if not (in (slice "light" "dark" "auto") $color) }}
   {{- $color = "auto" }}
 {{- end }}
-<html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="{{ .Lang }}"
-  data-bs-theme="{{ $color }}"
+<html class="position-relative" itemscope itemtype="http://schema.org/WebPage" lang="{{ .Lang }}" data-bs-theme="{{ $color }}"
   {{- with $.Site.Language.LanguageDirection }} dir="{{ . }}"{{ end }}
   {{- with $.Site.Params.palette }} data-palette="{{ replace . " " "-" }}"{{ end }}>
   <head>
