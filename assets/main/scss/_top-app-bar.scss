@@ -129,6 +129,7 @@ $header-caret-width: 0.35em;
       --#{$prefix}form-control-bg: var(--#{$prefix}surface-bg);
 
       .offcanvas-lg,
+      .offcanvas-xl,
       .offcanvas-xxl {
         --#{$prefix}offcanvas-bg: var(--#{$prefix}surface-bg);
         --#{$prefix}offcanvas-color: var(#{$prefix}surface-color-secondary);
