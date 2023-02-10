@@ -2,7 +2,7 @@
   {{- $page := .Site.GetPage "/search" }}
   {{- if ne $page.RelPermalink .RelPermalink -}}
     {{- $placeholder := partialCached "functions/search-input-placeholder" . . }}
-    <hr class="d-xxl-none">
+    <hr class="d-xl-none">
     <form class="search-bar ms-auto my-1" action="{{ with $page }}{{ .RelPermalink }}{{ end }}" novalidate>
       <div class="input-group input-group-sm align-items-center">
         <span class="btn btn-search disabled position-absolute left-0 border-0 px-1">
