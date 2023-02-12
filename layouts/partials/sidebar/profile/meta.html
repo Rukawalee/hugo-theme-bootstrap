@@ -1,5 +1,13 @@
 {{- with .Site.Author -}}
-<div class="profile-name fw-fold fs-lg">{{ .name }}</div>
+<div class="profile-name fw-fold fs-lg">
+    {{ if .intro }}
+    <a class="profile-about text-primary" target="_blank" rel="noopener noreferrer" href="{{ .intro }}">
+    {{ end }}
+        {{ .name }}
+    {{ if .intro }}
+    </a>
+    {{ end }}
+</div>
 {{- with .bio -}}
 <div class="profile-bio">{{ . }}</div>
 {{- end -}}

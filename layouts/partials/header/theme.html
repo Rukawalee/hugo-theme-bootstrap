@@ -10,7 +10,7 @@
         <span class="d-xl-none">{{ i18n "mode" }}</span>
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="modeDropdown">
-        {{- range slice "light" "dark" "auto" }}
+        {{- range slice "light" "dark"}}
         {{- $item := index $modes . }}
         <li class="mode-item{{ if eq $mode . }} active{{ end }}" data-color-mode="{{ . }}" data-icon="{{ $item.icon }}">
             <button class="dropdown-item">
