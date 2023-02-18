@@ -1,4 +1,4 @@
-<article class="row card post component">
+<article class="row card post component rounded-4">
   {{- if and (default true .Page.Site.Params.pinned) .Page.Params.pinned }}
     {{- $pinnedPosts := .PinnedPosts }}
     {{- with .Page.File.UniqueID }}
