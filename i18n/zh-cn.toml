@@ -215,7 +215,7 @@ other = "Profile"
 other = "阅读更多"
 
 [reading_time]
-other = "{{ .ReadingTime }} 分钟阅读"
+other = "{{ .ReadingTime }} 分钟"
 
 [recent_posts]
 other = "最近文章"

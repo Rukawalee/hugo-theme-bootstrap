@@ -225,7 +225,7 @@ other = "Profile"
 other = "Read More"
 
 [reading_time]
-other = "{{ .ReadingTime }} min read"
+other = "{{ .ReadingTime }} minute{{ if gt .ReadingTime 1 }}s{{ end }}"
 
 [recent_posts]
 other = "Recent Posts"

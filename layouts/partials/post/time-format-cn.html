@@ -1,0 +1,12 @@
+{{ $format := (.Date | time.Format $.Site.Params.dateFormat) }}
+{{ if $format }}
+{{ $times := split $format " " }}
+{{ $offset := sub (len $times) 1 }}
+{{ $targetKey := index $times $offset }}
+{{ $replaceValue := .Site.Params.dateMap.Get $targetKey }}
+{{ if $replaceValue }}
+{{ replace $format $targetKey $replaceValue }}
+{{ else }}
+{{ $format }}
+{{ end }}
+{{ end }}

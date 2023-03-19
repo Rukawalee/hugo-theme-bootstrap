@@ -1,22 +1,22 @@
-<article class="row card post component rounded-4">
-  {{- if and (default true .Page.Site.Params.pinned) .Page.Params.pinned }}
+<article class="row card post component rounded-4 mb-3">
+    {{- if and (default true .Page.Site.Params.pinned) .Page.Params.pinned }}
     {{- $pinnedPosts := .PinnedPosts }}
     {{- with .Page.File.UniqueID }}
-      {{- if in $pinnedPosts . }}
-      <span class="post-pinned-icon position-absolute start-0 top-0 text-primary"><i class="fas fa-thumbtack" data-fa-transform="rotate-45"></i></span>
-      {{- end }}
-    {{- end }}
-  {{- end }}
-  <div class="card-header">
-    <h2 class="card-title post-title my-2 fs-4">
-      <a href="{{ .Page.RelPermalink }}">{{ partial "helpers/title" .Page }}</a>
-    </h2>
-  </div>
-  <div class="card-body">
-    {{- partial "post/thumbnail" .Page }}
-    {{- partial "post/meta" .Page }}
-    <div class="post-summary">
-      {{- partial "post/excerpt" .Page }}
+    {{- if in $pinnedPosts . }}
+    <div class="post-pinned-icon position-absolute text-body text-end mt-2 px-0 start-50 translate-middle">
+      <i class="fas fa-thumbtack fs-5" data-fa-transform="rotate-45"></i>
     </div>
-  </div>
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    <div class="card-body">
+      {{- partial "post/thumbnail" .Page }}
+      <h3 class="card-title post-title fs-4">
+        <a href="{{ .Page.RelPermalink }}">{{ partial "helpers/title" .Page }}</a>
+      </h3>
+      <div class="post-summary indent-2 text-body">
+        {{- partial "post/excerpt" .Page }}
+      </div>
+    </div>
+    {{- partial "post/meta" .Page }}
 </article>

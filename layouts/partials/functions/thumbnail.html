@@ -2,4 +2,7 @@
 {{- if not $img }}
   {{- $img = .Resources.GetMatch "{*cover*,*thumbnail*}" }}
 {{- end }}
+{{- if not $img }}
+  {{- $img = resources.GetMatch "*none.png" }}
+{{- end }}
 {{- return $img -}}
