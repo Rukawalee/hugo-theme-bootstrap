@@ -12,7 +12,10 @@
     <div class="card-body">
       {{- partial "post/thumbnail" .Page }}
       <h3 class="card-title post-title fs-4">
-        <a href="{{ .Page.RelPermalink }}">{{ partial "helpers/title" .Page }}</a>
+        <a href="{{ .Page.RelPermalink }}">
+          {{ partial "helpers/title" .Page }}
+          <i class="fa-solid fa-link text-primary fs-6"></i>
+        </a>
       </h3>
       <div class="post-summary indent-2 text-body">
         {{- partial "post/excerpt" .Page }}
