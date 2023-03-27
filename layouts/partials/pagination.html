@@ -1,7 +1,9 @@
 {!--{- template "_internal/pagination.html" . -}}
 {{ $paginator := .Paginator }}
 {{ $totalPages := $paginator.TotalPages }}
-<div class="table-responsive mb-2 {{ if and (gt $paginator.PageNumber 1) (lt $paginator.PageNumber $totalPages) }} text-center {{ else if eq $paginator.PageNumber $totalPages }} text-end {{ end }} clearfix">
+{{ $pageSize := $paginator.PageSize }}
+<div
+  class="table-responsive mb-2 {{ if and (gt $paginator.PageNumber 1) (lt $paginator.PageNumber $totalPages) }} text-center {{ else if eq $paginator.PageNumber $totalPages }} text-end {{ end }} clearfix">
   {{ if gt $totalPages 1 }}
   {{ if and (gt $paginator.PageNumber 1) ($paginator.HasPrev) }}
   <div class="float-start">
@@ -18,40 +20,41 @@
   </div>
   {{ end }}
   <div class="d-none d-md-block">
-    {{ if ge $paginator.PageNumber $paginator.PageSize }}
+    {{ $halfSplitor := add (div $pageSize 2) 1 }}
+    {{ if and
+    (gt $totalPages $pageSize)
+    (ge $paginator.PageNumber $halfSplitor)
+    }}
     <a class="btn btn-outline-dark" href="{{ $paginator.First.URL }}">
       {{ $paginator.First.PageNumber }}
     </a>
     <a class="btn btn-outline-dark" href="1">
       ...
     </a>
-    {{  else if lt $paginator.PageNumber $paginator.PageSize }}
-    {{ range seq $paginator.PageSize }}
-    {{ $pager := index $paginator.Pagers (sub . 1) }}
-    <a class="btn btn-outline-dark" href="{{ $pager.URL }}">
-      {{ . }}
-    </a>
     {{ end }}
+    {{ $middleMaxPage := sub $totalPages $pageSize }}
+    {{ $middleMaxSplitor := add $middleMaxPage $halfSplitor }}
+    {{ $pageSizeMul := div $paginator.PageNumber $halfSplitor }}
+    {{ $pageStart := mul $pageSizeMul $halfSplitor }}
+    {{ if eq $pageStart 0 }}
+    {{ $pageStart = 1 }}
+    {{ else if gt $pageStart $middleMaxPage }}
+    {{ $pageStart = $middleMaxPage }}
     {{ end }}
-    {{ $middleMaxPage := sub $totalPages $paginator.PageSize }}
-    {{ if and (ge $paginator.PageNumber $paginator.PageSize) (lt $paginator.PageNumber $middleMaxPage) }}
-    {{ $pageStart := add (mul (div $paginator.PageNumber $paginator.PageSize) $paginator.PageSize) 1 }}
-    {{ $pageEnd := add $pageStart $paginator.PageSize }}
+    {{ $pageEnd := add $pageStart $pageSize }}
+    {{ if gt $pageEnd $totalPages }}
+    {{ $pageEnd = $totalPages }}
+    {{ end }}
     {{ range after $pageStart (seq $pageEnd) }}
     {{ $pager := index $paginator.Pagers (sub . 1) }}
     <a class="btn btn-outline-dark" href="{{ $pager.URL }}">
       {{ . }}
     </a>
     {{ end }}
-    {{ end }}
-    {{ if ge $paginator.PageNumber $middleMaxPage }}
-    {{ range after $middleMaxPage (seq $totalPages) }}
-    {{ $pager := index $paginator.Pagers (sub . 1) }}
-    <a class="btn btn-outline-dark" href="{{ $pager.URL }}">
-      {{ . }}
-    </a>
-    {{ end }}
-    {{ else }}
+    {{ if and
+    (gt $totalPages $pageSize)
+    (lt $paginator.PageNumber $middleMaxSplitor)
+    }}
     <a class="btn btn-outline-dark" href="1">
       ...
     </a>
