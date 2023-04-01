@@ -30,7 +30,7 @@
     {{- $dateParams = merge $dateParams (dict "updatedOn" .Lastmod.Local) }}
     {{- end }}
     <span class="post-date" title="{{ i18n " post_date" $dateParams }}">
-      {{- partial "post/time-format-cn" .Page }}
+      {{- partial "post/time-format" .Page }}
     </span>
     {{- end }}
   </div>
