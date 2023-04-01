@@ -1,5 +1,5 @@
 {{- if default true .Params.sidebar }}
-<aside class="col-xl-4 sidebar d-flex row">
+<aside class="col-xl-4 sidebar d-flex row d-none d-md-block">
   <div class="container d-flex flex-column pe-0">
     {{ partial "hooks/sidebar-begin" . }}
     {{ partial "sidebar/main" . }}
