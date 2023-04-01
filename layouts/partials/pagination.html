@@ -1,73 +1,79 @@
-{!--{- template "_internal/pagination.html" . -}}
 {{ $paginator := .Paginator }}
 {{ $totalPages := $paginator.TotalPages }}
 {{ $pageSize := $paginator.PageSize }}
+{{ $currPageNumber := $paginator.PageNumber }}
 <div
   class="table-responsive mb-2 {{ if and (gt $paginator.PageNumber 1) (lt $paginator.PageNumber $totalPages) }} text-center {{ else if eq $paginator.PageNumber $totalPages }} text-end {{ end }} clearfix">
   {{ if gt $totalPages 1 }}
   {{ if and (gt $paginator.PageNumber 1) ($paginator.HasPrev) }}
   <div class="float-start">
-    <a class="btn btn-outline-dark" href="{{ $paginator.Prev.URL }}">
+    <a class="btn btn-outline-secondary" href="{{ $paginator.Prev.URL }}">
       <i class="fa-solid fa-angle-left"></i>
     </a>
   </div>
   {{ end }}
   {{ if and (lt $paginator.PageNumber $totalPages) ($paginator.HasNext) }}
   <div class="float-end">
-    <a class="btn btn-outline-dark" href="{{ $paginator.Next.URL }}">
+    <a class="btn btn-outline-secondary" href="{{ $paginator.Next.URL }}">
       <i class="fa-solid fa-angle-right"></i>
     </a>
   </div>
   {{ end }}
   <div class="d-none d-md-block">
-    {{ $halfSplitor := add (div $pageSize 2) 1 }}
+    {{ $mid := div $pageSize 2 }}
+    {{ $lastMid := sub $totalPages $pageSize }}
+    <!-- 中间分页计算 -->
+    {{ $start := sub $currPageNumber $mid }}
+    {{ $end := add $currPageNumber $mid }}
+    {{ if le $start 2 }}
+    {{ $start = 1 }}
+    {{ else if ge $start $lastMid }}
+    {{ $start = $lastMid }}
+    {{ end }}
+    {{ if le $end $pageSize }}
+    {{ $end = $pageSize }}
+    {{ else if ge $end (sub $totalPages 1) }}
+    {{ $end = $totalPages }}
+    {{ end }}
+    <!-- 开头省略 -->
     {{ if and
     (gt $totalPages $pageSize)
-    (ge $paginator.PageNumber $halfSplitor)
+    (gt $start 2)
     }}
-    <a class="btn btn-outline-dark" href="{{ $paginator.First.URL }}">
+    <a class="btn btn-outline-secondary" href="{{ $paginator.First.URL }}">
       {{ $paginator.First.PageNumber }}
     </a>
-    <a class="btn btn-outline-dark" href="1">
+    {{ $pager := index $paginator.Pagers (div (add 1 $currPageNumber) 2) }}
+    <a class="btn btn-outline-secondary" href="{{ $pager.URL }}">
       ...
     </a>
     {{ end }}
-    {{ $middleMaxPage := sub $totalPages $pageSize }}
-    {{ $middleMaxSplitor := add $middleMaxPage $halfSplitor }}
-    {{ $pageSizeMul := div $paginator.PageNumber $halfSplitor }}
-    {{ $pageStart := mul $pageSizeMul $halfSplitor }}
-    {{ if eq $pageStart 0 }}
-    {{ $pageStart = 1 }}
-    {{ else if gt $pageStart $middleMaxPage }}
-    {{ $pageStart = $middleMaxPage }}
-    {{ end }}
-    {{ $pageEnd := add $pageStart $pageSize }}
-    {{ if gt $pageEnd $totalPages }}
-    {{ $pageEnd = $totalPages }}
-    {{ end }}
-    {{ range after $pageStart (seq $pageEnd) }}
+    <!-- 中间分页 -->
+    {{ range (seq $start $end) }}
     {{ $pager := index $paginator.Pagers (sub . 1) }}
-    <a class="btn btn-outline-dark" href="{{ $pager.URL }}">
+    <a class="btn btn-outline-secondary {{ if eq . $currPageNumber }}active{{ end }}" href="{{ $pager.URL }}">
       {{ . }}
     </a>
     {{ end }}
+    <!-- 结尾省略 -->
     {{ if and
     (gt $totalPages $pageSize)
-    (lt $paginator.PageNumber $middleMaxSplitor)
+    (lt $end (sub $totalPages 1))
     }}
-    <a class="btn btn-outline-dark" href="1">
+    {{ $pager := index $paginator.Pagers (div (add $totalPages $currPageNumber) 2) }}
+    <a class="btn btn-outline-secondary" href="{{ $pager.URL }}">
       ...
     </a>
-    <a class="btn btn-outline-dark" href="{{ $paginator.Last.URL }}">
+    <a class="btn btn-outline-secondary" href="{{ $paginator.Last.URL }}">
       {{ $paginator.Last.PageNumber }}
     </a>
     {{ end }}
-    <button class="btn btn-outline-dark input-button">
+    <!-- <button class="btn btn-outline-dark input-button">
       <input class="input-go-page text-center" />
       <a href="1">
         <i class="fa-solid fa-angles-right"></i>
       </a>
-    </button>
+    </button> -->
   </div>
   {{ end }}
 </div>
