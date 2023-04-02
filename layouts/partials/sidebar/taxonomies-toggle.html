@@ -11,40 +11,54 @@
             </a>
         </div>
         <div class="card-body collapse accordion-collapse accordion-body d-lg-block{{ if not $collapsed }} show{{ end }}" id="taxonomies-toggle">
-            {{- $counter := 0 }}
-            {{- range $expected := $.Site.Params.sidebarTaxonomies }}
-            {{- range $key, $value := $.Site.Taxonomies }}
-            {{- if eq $key $expected }}
-            {{- $countParams := dict "categories" "categoryCount" "tags" "tagCount" "series" "seriesCount" }}
-            {{- $param := default "" (index $countParams $key) }}
-            {{- $taxonomyCount := default 10 ($.Site.Param $param) }}
-            {{- if $taxonomyCount }}
-                {{- with $value.ByCount }}
-                <!--可能不显示-->
-                {{ $page := $.GetPage $key }}
-                {{ $icon := $page.Params.menu.main.params.icon }}
+            <div>
+                {{- $counter := 0 }}
+                {{ $showDict := dict "" "" }}
+                {{ range $.Site.Menus.main }}
+                {{ if .Params.showSon  }}
+                {{ range .Children }}
+                {{ $splitors := split .URL "/" }}
+                {{ if ge (len $splitors) 2 }}
+                {{ $tagName := index $splitors (sub (len $splitors) 2) }}
+                {{ $showDict = merge $showDict (dict $tagName .Params.icon) }}
+                {{ else }}
+                {{ $showDict = merge $showDict (dict .URL .Params.icon) }}
+                {{ end }}
+                {{ end }}
+                {{ end }}
+                {{ end }}
+                {{- range $expected := $.Site.Params.sidebarTaxonomies }}
+                {{- range $key, $value := $.Site.Taxonomies }}
+                {{- if eq $key $expected }}
+                {{- $countParams := dict "categories" "categoryCount" "tags" "tagCount" "series" "seriesCount" }}
+                {{- $param := default "" (index $countParams $key) }}
+                {{- $taxonomyCount := default 10 ($.Site.Param $param) }}
+                {{- if $taxonomyCount }}
+                    {{- with $value.ByCount }}
+                    <!--可能不显示-->
+                    {{ $icon := index $showDict $key }}
+                    <div class="text-body">
+                        {{ with $icon }}
+                        {{ . | safeHTML }}
+                        {{ end }}
+                        {{ i18n $key }}
+                    </div>
+                    {{- $counter = add $counter 1 }}
+                    {{- end }}
+                {{- end }}
+                {{- end }}
+                {{- end }}
+                {{- end }}
+                {{- if $archives }}
+                {{ $icon := index $showDict "archives" }}
                 <div class="text-body">
                     {{ with $icon }}
                     {{ . | safeHTML }}
                     {{ end }}
-                    {{ i18n $key }}
+                    {{ i18n "archives" }}
                 </div>
-                {{- $counter = add $counter 1 }}
                 {{- end }}
-            {{- end }}
-            {{- end }}
-            {{- end }}
-            {{- end }}
-            {{- if $archives }}
-            {{ $archivesPage := $.GetPage "archives" }}
-            {{ $archivesIcon := $archivesPage.Params.menu.main.params.icon }}
-            <div class="text-body">
-                {{ with $archivesIcon }}
-                {{ . | safeHTML }}
-                {{ end }}
-                {{ i18n "archives" }}
             </div>
-            {{- end }}
             
             <div class="tab-content mt-3">
                 {{- $counter := 0 }}
