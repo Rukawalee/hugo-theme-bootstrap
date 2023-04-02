@@ -20,7 +20,13 @@
             {{- $taxonomyCount := default 10 ($.Site.Param $param) }}
             {{- if $taxonomyCount }}
                 {{- with $value.ByCount }}
+                <!--可能不显示-->
+                {{ $page := $.GetPage $key }}
+                {{ $icon := $page.Params.menu.main.params.icon }}
                 <div class="text-body">
+                    {{ with $icon }}
+                    {{ . | safeHTML }}
+                    {{ end }}
                     {{ i18n $key }}
                 </div>
                 {{- $counter = add $counter 1 }}
@@ -30,7 +36,12 @@
             {{- end }}
             {{- end }}
             {{- if $archives }}
+            {{ $archivesPage := $.GetPage "archives" }}
+            {{ $archivesIcon := $archivesPage.Params.menu.main.params.icon }}
             <div class="text-body">
+                {{ with $archivesIcon }}
+                {{ . | safeHTML }}
+                {{ end }}
                 {{ i18n "archives" }}
             </div>
             {{- end }}
