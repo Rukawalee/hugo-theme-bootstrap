@@ -11,37 +11,29 @@
             </a>
         </div>
         <div class="card-body collapse accordion-collapse accordion-body d-lg-block{{ if not $collapsed }} show{{ end }}" id="taxonomies-toggle">
-            <ul class="nav nav-pills nav-fill" role="tablist">
-                {{- $counter := 0 }}
-                {{- range $expected := $.Site.Params.sidebarTaxonomies }}
-                {{- range $key, $value := $.Site.Taxonomies }}
-                {{- if eq $key $expected }}
-                {{- $countParams := dict "categories" "categoryCount" "tags" "tagCount" "series" "seriesCount" }}
-                {{- $param := default "" (index $countParams $key) }}
-                {{- $taxonomyCount := default 10 ($.Site.Param $param) }}
-                {{- if $taxonomyCount }}
-                    {{- with $value.ByCount }}
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link{{ if eq $counter 0 }} active{{ end }}" id="taxonomy{{ $key | title }}Tab" data-bs-toggle="tab" data-bs-target="#taxonomy{{ $key | title }}" 
-                            type="button" role="tab" aria-controls="taxonomy{{ $key | title }}" aria-selected="true">
-                            {{ i18n $key }}
-                        </button>
-                    </li>
-                    {{- $counter = add $counter 1 }}
-                    {{- end }}
+            {{- $counter := 0 }}
+            {{- range $expected := $.Site.Params.sidebarTaxonomies }}
+            {{- range $key, $value := $.Site.Taxonomies }}
+            {{- if eq $key $expected }}
+            {{- $countParams := dict "categories" "categoryCount" "tags" "tagCount" "series" "seriesCount" }}
+            {{- $param := default "" (index $countParams $key) }}
+            {{- $taxonomyCount := default 10 ($.Site.Param $param) }}
+            {{- if $taxonomyCount }}
+                {{- with $value.ByCount }}
+                <div class="text-body">
+                    {{ i18n $key }}
+                </div>
+                {{- $counter = add $counter 1 }}
                 {{- end }}
-                {{- end }}
-                {{- end }}
-                {{- end }}
-                {{- if $archives }}
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="taxonomyArchivesTab" data-bs-toggle="tab" data-bs-target="#taxonomyArchives" 
-                        type="button" role="tab" aria-controls="taxonomyArchives" aria-selected="true">
-                        {{ i18n "archives" }}
-                    </button>
-                </li>
-                {{- end }}
-            </ul>
+            {{- end }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
+            {{- if $archives }}
+            <div class="text-body">
+                {{ i18n "archives" }}
+            </div>
+            {{- end }}
             
             <div class="tab-content mt-3">
                 {{- $counter := 0 }}

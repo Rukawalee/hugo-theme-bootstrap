@@ -1,6 +1,6 @@
 {{ $paginator := .Paginator }}
 {{ $totalPages := $paginator.TotalPages }}
-{{ $pageSize := $paginator.PageSize }}
+{{ $remainPage := ($.Site.Param "paginator").Get "remainPage" }}
 {{ $currPageNumber := $paginator.PageNumber }}
 <div
   class="table-responsive mb-2 {{ if and (gt $currPageNumber 1) (lt $currPageNumber $totalPages) }} text-center {{ else if eq $currPageNumber $totalPages }} text-end {{ end }} clearfix">
@@ -38,8 +38,8 @@
     {{ end }}
   </div>
   <div class="d-none d-md-block">
-    {{ $mid := div $pageSize 2 }}
-    {{ $lastMid := sub $totalPages $pageSize }}
+    {{ $mid := div $remainPage 2 }}
+    {{ $lastMid := add (sub $totalPages $remainPage) 1 }}
     <!-- 中间分页计算 -->
     {{ $start := sub $currPageNumber $mid }}
     {{ $end := add $currPageNumber $mid }}
@@ -48,14 +48,14 @@
     {{ else if ge $start $lastMid }}
     {{ $start = $lastMid }}
     {{ end }}
-    {{ if le $end $pageSize }}
-    {{ $end = $pageSize }}
+    {{ if le $end $remainPage }}
+    {{ $end = $remainPage }}
     {{ else if ge $end (sub $totalPages 1) }}
     {{ $end = $totalPages }}
     {{ end }}
     <!-- 开头省略 -->
     {{ if and
-    (gt $totalPages $pageSize)
+    (gt $totalPages $remainPage)
     (gt $start 2)
     }}
     <a class="btn btn-outline-secondary" href="{{ $paginator.First.URL }}">
@@ -75,7 +75,7 @@
     {{ end }}
     <!-- 结尾省略 -->
     {{ if and
-    (gt $totalPages $pageSize)
+    (gt $totalPages $remainPage)
     (lt $end (sub $totalPages 1))
     }}
     {{ $pager := index $paginator.Pagers (div (add $totalPages $currPageNumber) 2) }}
