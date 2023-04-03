@@ -43,34 +43,7 @@
                         {{ end }}
                         {{ i18n $key }}
                     </div>
-                    {{- $counter = add $counter 1 }}
-                    {{- end }}
-                {{- end }}
-                {{- end }}
-                {{- end }}
-                {{- end }}
-                {{- if $archives }}
-                {{ $icon := index $showDict "archives" }}
-                <div class="text-body">
-                    {{ with $icon }}
-                    {{ . | safeHTML }}
-                    {{ end }}
-                    {{ i18n "archives" }}
-                </div>
-                {{- end }}
-            </div>
-            
-            <div class="tab-content mt-3">
-                {{- $counter := 0 }}
-                {{- range $expected := $.Site.Params.sidebarTaxonomies }}
-                {{- range $key, $value := $.Site.Taxonomies }}
-                {{- if eq $key $expected }}
-                {{- $countParams := dict "categories" "categoryCount" "tags" "tagCount" "series" "seriesCount" }}
-                {{- $param := default "" (index $countParams $key) }}
-                {{- $taxonomyCount := default 10 ($.Site.Param $param) }}
-                {{- if $taxonomyCount }}
-                    {{- with $value.ByCount }}
-                    <div class="tab-pane{{ if eq $counter 0 }} active{{ end }}" id="taxonomy{{ $key | title }}" role="tabpanel" aria-labelledby="taxonomy{{ $key | title }}Tab" tabindex="0">
+                    <div class="mt-1">
                         {{- $count := 0 }}
                         {{- range . }}
                         {{- if and (lt $count $taxonomyCount) (ne .Name "") }}
@@ -97,7 +70,14 @@
                 {{- end }}
                 {{- end }}
                 {{- if $archives }}
-                <div class="tab-pane" id="taxonomyArchives" role="tabpanel" aria-labelledby="taxonomyArchivesTab" tabindex="0">
+                {{ $icon := index $showDict "archives" }}
+                <div class="text-body">
+                    {{ with $icon }}
+                    {{ . | safeHTML }}
+                    {{ end }}
+                    {{ i18n "archives" }}
+                </div>
+                <div class="mt-1">
                     {{- partial "sidebar/archive-items" . }}
                 </div>
                 {{- end }}
