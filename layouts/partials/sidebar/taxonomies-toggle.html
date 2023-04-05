@@ -49,10 +49,10 @@
                         {{- $count := 0 }}
                         {{- range . }}
                         {{- if and (lt $count $taxonomyCount) (ne .Name "") }}
-                        <a href="{{ .Page.RelPermalink }}" class="btn btn-sm btn-outline-secondary post-{{ $key | singularize }} me-2 mb-2" title="{{ .Page.Title }}">
+                        <a href="{{ .Page.RelPermalink }}" class="btn btn-sm btn-outline-secondary post-{{ $key | singularize }} me-2 mb-2 py-0 rounded-pill position-relative" title="{{ .Page.Title }}">
                             {{ .Page.Title }}
                             {{- if $.Site.Params.countTaxonomyPosts }}
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-secondary">{{ .Count }}</span>
+                            <span class="badge text-bg-light px-1">{{ .Count }}</span>
                             {{- end }}
                         </a>
                         {{- $count = add $count 1 }}
