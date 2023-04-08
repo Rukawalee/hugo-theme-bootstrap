@@ -6,6 +6,6 @@
     class="btn btn-sm btn-outline-secondary post-{{ .Key | singularize }} me-2 mb-2 py-0 rounded-pill position-relative"
     title="{{ .Key }}">
     {{ .Key }} 
-    <span class="badge badge-sm text-bg-light px-1">{{ len .Pages}}</span>
+    <span class="badge badge-sm text-bg-light px-1 text-danger">{{ len .Pages}}</span>
 </a>
 {{ end }}

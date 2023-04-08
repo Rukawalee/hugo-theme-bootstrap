@@ -52,7 +52,7 @@
                         <a href="{{ .Page.RelPermalink }}" class="btn btn-sm btn-outline-secondary post-{{ $key | singularize }} me-2 mb-2 py-0 rounded-pill position-relative" title="{{ .Page.Title }}">
                             {{ .Page.Title }}
                             {{- if $.Site.Params.countTaxonomyPosts }}
-                            <span class="badge badge-sm text-bg-light px-1">{{ .Count }}</span>
+                            <span class="badge badge-sm text-bg-light px-1 text-danger">{{ .Count }}</span>
                             {{- end }}
                         </a>
                         {{- $count = add $count 1 }}

@@ -1,6 +1,6 @@
 {{- if eq .Kind "term" }}
     {{- if eq .Data.Plural "authors" }}
-        <div class="row card author component">
+        <div class="row card author component rounded-4">
             <div class="card-body">
                 <div class="d-flex flex-column flex-md-row align-items-center">
                     {{- partial "author/avatar" . }}
