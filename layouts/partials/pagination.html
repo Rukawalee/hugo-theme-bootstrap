@@ -48,7 +48,9 @@
     {{ else if ge $start $lastMid }}
     {{ $start = $lastMid }}
     {{ end }}
-    {{ if le $end $remainPage }}
+    {{ if lt $totalPages $remainPage }}
+    {{ $end = $totalPages }}
+    {{ else if le $end $remainPage }}
     {{ $end = $remainPage }}
     {{ else if ge $end (sub $totalPages 1) }}
     {{ $end = $totalPages }}
