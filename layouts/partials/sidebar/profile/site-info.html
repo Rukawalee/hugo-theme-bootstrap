@@ -1,0 +1,18 @@
+<!-- {{ $pages := where .Site.Pages "Kind" "page" }} -->
+{{ $pages := .Site.RegularPages }}
+<div class="nav justify-content-center mt-2">
+    <div class="nav-link text-body">
+        {{ i18n "posts" }}
+        <br />
+        {{ len $pages }}
+    </div>
+    <div class="nav-link text-body">
+        {{ i18n "words" }}
+        <br />
+        {{ $words := 0 }}
+        {{ range $pages }}
+        {{ $words = add $words .WordCount }}
+        {{ end }}
+        {{ partial "helpers/word-count" $words }}
+    </div>
+</div>

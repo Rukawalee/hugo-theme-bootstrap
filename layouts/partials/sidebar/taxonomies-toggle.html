@@ -1,21 +1,23 @@
 {{- $collapsed := default false .Site.Params.sidebar.collapsed }}
 {{- if default true .Site.Params.sidebar.taxonomiesToggle }}
 {{- $archives := default true $.Site.Params.sidebar.taxonomiesToggleArchives }}
+
 <div class="accordion taxonomies-toggle">
     <div class="row card component accordion-item rounded-4">
         <div class="accordion-header card-header border-0">
-            <a
-                class="accordion-button d-lg-none mb-1 shadow-none p-0 bg-transparent{{ if $collapsed }} collapsed{{ end }}"
-                role="button" data-bs-toggle="collapse" href="#taxonomies-toggle" aria-expanded="{{ if $collapsed }}false{{ else }}true{{ end }}" aria-controls="taxonomies-toggle">
+            <a class="accordion-button d-lg-none mb-1 shadow-none p-0 bg-transparent{{ if $collapsed }} collapsed{{ end }}"
+                role="button" data-bs-toggle="collapse" href="#taxonomies-toggle"
+                aria-expanded="{{ if $collapsed }}false{{ else }}true{{ end }}" aria-controls="taxonomies-toggle">
                 {{ i18n "taxonomies" }}
             </a>
         </div>
-        <div class="card-body collapse accordion-collapse accordion-body d-lg-block{{ if not $collapsed }} show{{ end }}" id="taxonomies-toggle">
+        <div class="card-body collapse accordion-collapse accordion-body d-lg-block{{ if not $collapsed }} show{{ end }}"
+            id="taxonomies-toggle">
             <div>
                 {{- $counter := 0 }}
                 {{ $showDict := dict "" "" }}
                 {{ range $.Site.Menus.main }}
-                {{ if .Params.showSon  }}
+                {{ if .Params.showSon }}
                 {{ range .Children }}
                 {{ $splitors := split .URL "/" }}
                 {{ if ge (len $splitors) 2 }}
@@ -34,34 +36,36 @@
                 {{- $param := default "" (index $countParams $key) }}
                 {{- $taxonomyCount := default 10 ($.Site.Param $param) }}
                 {{- if $taxonomyCount }}
-                    {{- with $value.ByCount }}
-                    {{ $icon := index $showDict $key }}
-                    <div class="text-body">
-                        <a href="{{ absLangURL (urlize $key) }}" class="fw-bold" title='{{ i18n $key }}'>
-                            {{ with $icon }}
-                            {{ . | safeHTML }}
-                            {{ end }}
-                            {{ i18n $key }}
-                            <!-- <span class="badge rounded-pill text-bg-secondary">{{ len $value }}</span> -->
-                        </a>
-                    </div>
-                    <div class="mt-2">
-                        {{- $count := 0 }}
-                        {{- range . }}
-                        {{- if and (lt $count $taxonomyCount) (ne .Name "") }}
-                        <a href="{{ .Page.RelPermalink }}" class="btn btn-sm btn-outline-secondary post-{{ $key | singularize }} me-2 mb-2 py-0 rounded-pill position-relative" title="{{ .Page.Title }}">
-                            {{ .Page.Title }}
-                            {{- if $.Site.Params.countTaxonomyPosts }}
-                            <span class="badge badge-sm text-bg-light px-1 text-danger">{{ .Count }}</span>
-                            {{- end }}
-                        </a>
-                        {{- $count = add $count 1 }}
+                {{- with $value.ByCount }}
+                {{ $icon := index $showDict $key }}
+                <div class="text-body">
+                    <a href="{{ absLangURL (urlize $key) }}" class="fw-bold" title='{{ i18n $key }}'>
+                        {{ with $icon }}
+                        {{ . | safeHTML }}
+                        {{ end }}
+                        {{ i18n $key }}
+                        <!-- <span class="badge rounded-pill text-bg-secondary">{{ len $value }}</span> -->
+                    </a>
+                </div>
+                <div class="mt-2">
+                    {{- $count := 0 }}
+                    {{- range . }}
+                    {{- if and (lt $count $taxonomyCount) (ne .Name "") }}
+                    <a href="{{ .Page.RelPermalink }}"
+                        class="btn btn-sm btn-outline-secondary post-{{ $key | singularize }} me-2 mb-2 py-0 rounded-pill position-relative"
+                        title="{{ .Page.Title }}">
+                        {{ .Page.Title }}
+                        {{- if $.Site.Params.countTaxonomyPosts }}
+                        <span class="badge badge-sm text-bg-light px-1 text-danger">{{ .Count }}</span>
                         {{- end }}
-                        {{- end }}
-                    </div>
-                    <hr class="mt-1" />
-                    {{- $counter = add $counter 1 }}
+                    </a>
+                    {{- $count = add $count 1 }}
                     {{- end }}
+                    {{- end }}
+                </div>
+                <hr class="mt-1" />
+                {{- $counter = add $counter 1 }}
+                {{- end }}
                 {{- end }}
                 {{- end }}
                 {{- end }}

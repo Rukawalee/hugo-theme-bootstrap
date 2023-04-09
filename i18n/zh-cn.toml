@@ -208,6 +208,9 @@ other = "创建于 {{ .createdOn }}{{ with .updatedOn }}，更新于 {{ . }}{{ e
 [posts]
 other = "文章"
 
+[words]
+other = "文字"
+
 [profile]
 other = "Profile"
 

@@ -218,6 +218,9 @@ other = "created on {{ .createdOn }}{{ with .updatedOn }}, updated on {{ . }}{{ 
 [posts]
 other = "Posts"
 
+[words]
+other = "Words"
+
 [profile]
 other = "Profile"
 
