@@ -2,7 +2,7 @@
 {{- $basePath := .basePath -}}
 {{- range .pages.GroupByDate "2006" -}}
 {{- $yearPage := $page.GetPage (printf "%s%s/" $basePath .Key) -}}
-<div class="archive card row component border-1 rounded-4" data-date="{{ .Key }}">
+<div class="card row component border-1 rounded-4" data-date="{{ .Key }}">
     <div class="card-header">
         <h2 class="card-title fs-4 text-surface">
         {{- with $yearPage -}}
@@ -11,11 +11,11 @@
             {{- .Key -}}
         {{- end -}}
         </h2>
-    </div>
-    <div class="card-body">
         <div class="archive-meta mb-2">
             <span><i class="fas fa-fw fa-file-alt me-1"></i>{{ i18n "post_count" (dict "Count" (len .Pages)) }}</span>
         </div>
+    </div>
+    <div class="card-body">
         <ul class="archive-posts post-list list-unstyled ms-1">
             {{- range first 5 .Pages -}}
             <li class="mb-2">
