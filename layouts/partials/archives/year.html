@@ -5,14 +5,14 @@
 {{- $pages = where $pages ".Date" "<" $toDate }}
 {{- range $pages.GroupByDate "01" -}}
 {{- $month := (time (printf "2006-%s-01" .Key)).Format "January" -}}
-<div class="archive card row component border-1 rounded-4" data-date="{{ $month }}">
+<div class="card row component border-1 rounded-4" data-date="{{ $month }}">
     <div class="card-header">
         <h2 class="card-title fs-4 text-surface">{{ $month }}</h2>
+        <div class="archive-meta mb-2">
+            <span><i class="fas fa-fw fa-file-alt me-1"></i>{{ i18n "post_count" (dict "Count" (len .Pages)) }}</span>
+        </div>
     </div>
     <div class="card-body">
-        <div class="archive-meta mb-2">
-        <span><i class="fas fa-fw fa-file-alt me-1"></i>{{ i18n "post_count" (dict "Count" (len .Pages)) }}</span>
-        </div>
         <ul class="archive-posts post-list list-unstyled ms-1">
             {{- range .Pages -}}
             <li class="mb-2">
