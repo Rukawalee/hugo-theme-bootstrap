@@ -2,17 +2,19 @@
 {{ $pages := .Site.RegularPages }}
 <div class="nav justify-content-center mt-2">
     <div class="nav-link text-body">
-        {{ i18n "posts" }}
-        <br />
-        {{ len $pages }}
+        <div class="d-flex align-items-center">
+            <i class="fas fa-fw fa-file-alt text-primary"></i>
+            {{ i18n "posts" }}
+        </div>
+        <span class="fw-bold">
+            {{ len $pages }}
+        </span>
     </div>
     <div class="nav-link text-body">
-        {{ i18n "words" }}
-        <br />
-        {{ $words := 0 }}
-        {{ range $pages }}
-        {{ $words = add $words .WordCount }}
-        {{ end }}
-        {{ partial "helpers/word-count" $words }}
+        <div class="d-flex align-items-center">
+            <i class="fas fa-fw fa-font"></i>
+            {{ i18n "words" }}
+        </div>
+        {{ partial "helpers/word-count" $pages }}
     </div>
 </div>

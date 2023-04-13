@@ -1,7 +1,13 @@
 {{ with . }}
-{{ if lt . 1000 }}
-{{ . }}
+{{ $words := 0 }}
+{{ range . }}
+{{ $words = add $words .WordCount }}
+{{ end }}
+{{ if lt $words 1000 }}
+{{ $words }}
 {{ else }}
-{{ div . 1000 }} k
+<span class="fw-bold">
+    {{ div $words 1000 }} k
+</span>
 {{ end }}
 {{ end }}

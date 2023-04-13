@@ -2,25 +2,34 @@
 {{- $fromDate := printf "%s-01-01 00:00:00" .year | time.AsTime -}}
 {{- $toDate := $fromDate.AddDate 1 0 0 -}}
 {{- $pages = where $pages ".Date" ">=" $fromDate }}
-{{- $pages = where $pages ".Date" "<" $toDate }}
-{{- range $pages.GroupByDate "01" -}}
-{{- $month := (time (printf "2006-%s-01" .Key)).Format "January" -}}
-<div class="card row component border-1 rounded-4" data-date="{{ $month }}">
+{{- $pages = where $pages ".Date" "<" $toDate }} {{- range $pages.GroupByDate "01" -}} {{- $month :=(time
+    (printf "2006-%s-01" .Key)).Format "January" -}} <div class="card row component border-1 rounded-4"
+    data-date="{{ $month }}">
     <div class="card-header">
-        <h2 class="card-title fs-4 text-surface">{{ $month }}</h2>
-        <div class="archive-meta mb-2">
-            <span><i class="fas fa-fw fa-file-alt me-1"></i>{{ i18n "post_count" (dict "Count" (len .Pages)) }}</span>
-        </div>
+        <h2 class="card-title fs-4 text-surface">
+            {{ $month }}
+            <span class="fs-6 ms-3">
+                <span>
+                    <i class="fas fa-file-alt text-primary"></i>
+                    {{ len .Pages }}
+                </span>
+                <span class="ms-2">
+                    <i class="fas fa-font"></i>
+                    {{ partial "helpers/word-count" .Pages }}
+                </span>
+            </span>
+        </h2>
     </div>
     <div class="card-body">
         <ul class="archive-posts post-list list-unstyled ms-1">
             {{- range .Pages -}}
             <li class="mb-2">
-                <a class="post-title" href="{{ .RelPermalink }}">{{ partial "helpers/title" . }}</a>
-                <span class="float-end post-date">{{ .Date.Format (default "Jan 2" $.Site.Params.archive.dateFormat) }}</span>
+                <a class="post-title" href="{{ .RelPermalink }}">{{ partial "helpers/title" . }} </a>
+                <span class="float-end post-date">{{ .Date.Format (default "Jan 2" $.Site.Params.archive.dateFormat)
+                    }}</span>
             </li>
             {{- end -}}
         </ul>
     </div>
-</div>
-{{- end -}}
+    </div>
+    {{- end -}}
