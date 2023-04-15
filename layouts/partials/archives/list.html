@@ -3,17 +3,27 @@
 {{- range .pages.GroupByDate "2006" -}}
 {{- $yearPage := $page.GetPage (printf "%s%s/" $basePath .Key) -}}
 <div class="card row component border-1 rounded-4" data-date="{{ .Key }}">
-    <div class="card-header">
-        <h2 class="card-title fs-4 text-surface">
-        {{- with $yearPage -}}
-            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-        {{- else -}}
-            {{- .Key -}}
-        {{- end -}}
-        </h2>
-        <div class="archive-meta mb-2">
-            <span><i class="fas fa-fw fa-file-alt me-1"></i>{{ i18n "post_count" (dict "Count" (len .Pages)) }}</span>
-        </div>
+    <div class="fs-6 ms-2 mt-2 text-secondary">
+        <span class="fw-bold">
+            {{- with $yearPage -}}
+                <a href="{{ .RelPermalink }}">
+                    {{ .Title }}
+                    <span class="fa-solid fa-link text-primary"></span>
+                </a>
+            {{- else -}}
+                {{- .Key -}}
+            {{- end -}}
+        </span>
+        <span class="ms-4 text-body">
+            <span class="fw-bold">
+                <i class="fas fa-file-alt text-primary"></i>
+                {{ len .Pages }}
+            </span>
+            <span class="ms-2">
+                <i class="fas fa-font"></i>
+                {{ partial "helpers/word-count" .Pages }}
+            </span>
+        </span>
     </div>
     <div class="card-body">
         <ul class="archive-posts post-list list-unstyled ms-1">
