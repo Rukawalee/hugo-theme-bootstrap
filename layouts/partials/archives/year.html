@@ -2,29 +2,28 @@
 {{- $fromDate := printf "%s-01-01 00:00:00" .year | time.AsTime -}}
 {{- $toDate := $fromDate.AddDate 1 0 0 -}}
 {{- $pages = where $pages ".Date" ">=" $fromDate }}
-{{- $pages = where $pages ".Date" "<" $toDate }} 
-{{- range $pages.GroupByDate "01" -}} 
+{{- $pages = where $pages ".Date" "<" $toDate }}
+{{ $totalPages := len $pages }}
+{{ $paginator :=$.page.Paginator }} 
+{{ $currPageNumber :=$paginator.PageNumber }} 
+{{ $pageSize :=$paginator.PageSize }}
+{{ $start :=mul $pageSize (sub $currPageNumber 1) }} 
+{{ $subPages :=first $pageSize (after $start $pages) }} 
+{{- range $subPages.GroupByDate "01" -}} 
 {{- $month :=(time (printf "2006-%s-01" .Key)).Format "January" -}} 
 <div class="card row component border-1 rounded-4" data-date="{{ $month }}">
-    <div class="fs-6 ms-2 mt-2 text-secondary">
+    <div class="fs-6 ms-2 mt-2 text-body">
         <span class="fw-bold">
             {{ $.page.Site.Params.dateMap.Get $month }}
         </span>
-        <span class="ms-4 text-body">
-            <span class="fw-bold">
-                <i class="fas fa-file-alt text-primary"></i>
-                {{ len .Pages }}
-            </span>
-            <span class="ms-2">
-                <i class="fas fa-font"></i>
-                {{ partial "helpers/word-count" .Pages }}
-            </span>
-        </span>
+        <div class="me-2 text-body float-end ">
+            {{ partial "helpers/site-info" .Pages }}
+        </div>
         <hr class="mb-0" />
     </div>
     <div class="card-body">
         <ul class="archive-posts post-list list-unstyled ms-1 mb-0">
-            {{- range $index, $value  := .Pages -}}
+            {{- range $index, $value := .Pages -}}
             <li class="{{ if gt $index 0 }} mt-3 {{ end }} d-flex align-items-center">
                 {{- partial "post/thumbnail-custom" (dict "Page" . "resize" "150x80") }}
                 <div class="flex-column flex-fill align-items-center">
@@ -42,5 +41,5 @@
             {{- end -}}
         </ul>
     </div>
-    </div>
-    {{- end -}}
+</div>
+{{- end -}}

@@ -22,8 +22,14 @@
   {{- if fileExists $filename -}}
   {{- if not (in $validExts $ext) -}}
   {{- $config := imageConfig $filename -}}
-  {{- $width = $imgWidth | $config.Width -}}
-  {{- $height = $imgHeight | $config.Height -}}
+  {{- $width = $config.Width -}}
+  {{ if $imgWidth }}
+  {{ $width = $imgWidth }}
+  {{ end }}
+  {{- $height = $config.Height -}}
+  {{ if $imgHeight }}
+  {{ $height = $imgHeight }}
+  {{ end }}
   {{- end -}}
   {{- else -}}
   {{- warnf "no such image can be found in page resources and the static folder: %s" $filename -}}
