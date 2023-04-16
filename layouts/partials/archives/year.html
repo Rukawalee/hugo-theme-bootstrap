@@ -3,13 +3,13 @@
 {{- $toDate := $fromDate.AddDate 1 0 0 -}}
 {{- $pages = where $pages ".Date" ">=" $fromDate }}
 {{- $pages = where $pages ".Date" "<" $toDate }}
-{{ $totalPages := len $pages }}
+<!-- {{ $totalPages := len $pages }}
 {{ $paginator :=$.page.Paginator }} 
 {{ $currPageNumber :=$paginator.PageNumber }} 
 {{ $pageSize :=$paginator.PageSize }}
-{{ $start :=mul $pageSize (sub $currPageNumber 1) }} 
-{{ $subPages :=first $pageSize (after $start $pages) }} 
-{{- range $subPages.GroupByDate "01" -}} 
+{{ $start := mul $pageSize (sub $currPageNumber 1) }} 
+{{ $subPages := first $pageSize (after $start $pages) }}  -->
+{{- range $pages.GroupByDate "01" -}} 
 {{- $month :=(time (printf "2006-%s-01" .Key)).Format "January" -}} 
 <div class="card row component border-1 rounded-4" data-date="{{ $month }}">
     <div class="fs-6 ms-2 mt-2 text-body">
