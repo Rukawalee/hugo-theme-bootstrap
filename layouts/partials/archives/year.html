@@ -2,12 +2,13 @@
 {{- $fromDate := printf "%s-01-01 00:00:00" .year | time.AsTime -}}
 {{- $toDate := $fromDate.AddDate 1 0 0 -}}
 {{- $pages = where $pages ".Date" ">=" $fromDate }}
-{{- $pages = where $pages ".Date" "<" $toDate }} {{- range $pages.GroupByDate "01" -}} {{- $month :=(time
-    (printf "2006-%s-01" .Key)).Format "January" -}} <div class="card row component border-1 rounded-4"
-    data-date="{{ $month }}">
+{{- $pages = where $pages ".Date" "<" $toDate }} 
+{{- range $pages.GroupByDate "01" -}} 
+{{- $month :=(time (printf "2006-%s-01" .Key)).Format "January" -}} 
+<div class="card row component border-1 rounded-4" data-date="{{ $month }}">
     <div class="fs-6 ms-2 mt-2 text-secondary">
         <span class="fw-bold">
-            {{ $month }}
+            {{ $.page.Site.Params.dateMap.Get $month }}
         </span>
         <span class="ms-4 text-body">
             <span class="fw-bold">
@@ -19,14 +20,24 @@
                 {{ partial "helpers/word-count" .Pages }}
             </span>
         </span>
+        <hr class="mb-0" />
     </div>
     <div class="card-body">
-        <ul class="archive-posts post-list list-unstyled ms-1">
-            {{- range .Pages -}}
-            <li class="mb-2">
-                <a class="post-title" href="{{ .RelPermalink }}">{{ partial "helpers/title" . }} </a>
-                <span class="float-end post-date">{{ .Date.Format (default "Jan 2" $.Site.Params.archive.dateFormat)
-                    }}</span>
+        <ul class="archive-posts post-list list-unstyled ms-1 mb-0">
+            {{- range $index, $value  := .Pages -}}
+            <li class="{{ if gt $index 0 }} mt-3 {{ end }} d-flex align-items-center">
+                {{- partial "post/thumbnail-custom" (dict "Page" . "resize" "150x80") }}
+                <div class="flex-column flex-fill align-items-center">
+                    <h3 class="card-title post-title fs-4 ms-2">
+                        <a href="{{ .Page.RelPermalink }}">
+                            {{ partial "helpers/title" . }}
+                            <i class="fa-solid fa-link text-primary fs-6"></i>
+                        </a>
+                    </h3>
+                    <div class="mt-auto">
+                        {{- partial "post/meta-custom" . }}
+                    </div>
+                </div>
             </li>
             {{- end -}}
         </ul>
