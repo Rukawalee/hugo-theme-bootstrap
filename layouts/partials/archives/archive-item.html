@@ -1,0 +1,14 @@
+{{ with . }}
+{{- partial "post/thumbnail-custom" (dict "Page" . "w" "150" "h" "80" "resize" "150x80") }}
+<div class="flex-column flex-fill align-items-center">
+    <h3 class="card-title post-title fs-4 ms-2">
+        <a href="{{ .Page.RelPermalink }}">
+            {{ partial "helpers/title" . }}
+            <i class="fa-solid fa-link text-primary fs-6"></i>
+        </a>
+    </h3>
+    <div class="mt-auto">
+        {{- partial "post/meta-custom" . }}
+    </div>
+</div>
+{{ end }}
