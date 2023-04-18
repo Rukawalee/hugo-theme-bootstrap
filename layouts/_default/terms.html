@@ -41,18 +41,18 @@
           {{- if $postCount -}}
           <ul class="taxonomy-posts post-list list-unstyled ms-1">
             {{- range $index, $value := first $postCount .Pages -}}
-            <li class="{{ if gt $index 0 }} mt-3 {{ end }} d-flex align-items-center">
+            <li class="{{ if gt $index 0 }} mt-3 {{ end }} d-flex align-items-start">
               {{ partial "archives/archive-item" . }}
             </li>
             {{- end -}}
           </ul>
           {{- end -}}
+          {{- if gt $count $postCount -}}
+          <div class="text-center fs-5 mt-3">
+            <a class="post-title" href="{{ .Page.RelPermalink }}">...</a>
+          </div>
+          {{- end -}}
         </div>
-        {{- if gt $count $postCount -}}
-        <div class="card-footer">
-          <a class="btn btn-sm btn-outline-primary" href="{{ .Page.RelPermalink }}">{{ i18n "read_more" }}</a>
-        </div>
-        {{- end -}}
       </div>
       {{- end -}}
     </div>
