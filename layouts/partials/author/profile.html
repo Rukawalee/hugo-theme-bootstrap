@@ -10,7 +10,9 @@
                         <div class="author-description mb-2">{{ . }}</div>
                         {{- end }}
                         {{- partial "author/social" . }}
-                        {{- partial "author/meta" . }}
+                        <div class="fs-6 text-body ms-2">
+                            {{ partial "helpers/site-info" .Pages }}
+                        </div>
                     </div>
                 </div>
             </div>

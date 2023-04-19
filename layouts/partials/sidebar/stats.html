@@ -4,6 +4,12 @@
     "series" "columns"
     "categories" "folder"
 }}
+{{ $colors := dict 
+  "authors" "text-danger"
+  "tags" "text-success"
+  "series" "text-info"
+  "categories" "text-warning"
+}}
 {{- $collapsed := default false .Site.Params.sidebar.collapsed }}
 <div class="accordion stats">
   <div class="accordion-item card row component rounded-4">
@@ -17,12 +23,12 @@
     <div class="card-body collapse accordion-collapse accordion-body d-lg-block{{ if not $collapsed }} show{{ end }}" id="stats" aria-labelledby="stats-header">
         <div class="row row-cols-5">
             <a class="stat col d-flex flex-column align-items-center" title="{{ i18n "posts" }}" href="{{ absURL "/" }}">
-                <i class="stat-icon fas fa-fw fa-2x fa-file-alt mb-2"></i>
+                <i class="stat-icon fas fa-fw fa-2x fa-file-alt mb-2 text-primary"></i>
                 <span class="stat-count">{{ len $.Site.RegularPages }}</span>
             </a>
             {{- range $key, $value := $.Site.Taxonomies }}
             <a class="stat col d-flex flex-column align-items-center" title="{{ i18n $key }}" href="{{ absLangURL (urlize $key) }}">
-                <i class="stat-icon fas fa-fw fa-2x fa-{{ index $icons $key }} mb-2"></i>
+                <i class="stat-icon fas fa-fw fa-2x fa-{{ index $icons $key }} {{ index $colors $key }} mb-2"></i>
                 <span class="stat-count">{{ len $value.ByCount }}</span>
             </a>
             {{- end }}
