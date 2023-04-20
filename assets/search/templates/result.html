@@ -1,5 +1,5 @@
-<div class="search-result col-12 pb-3 mb-3" id="{{id}}">
-    <div class="card-body text-body">
+<div class="search-result col-12 mb-0" id="{{id}}">
+    <div class="card-body text-body px-2">
         <div class="mb-2">
             <span class="search-result-score-wrapper">
                 <span class="post-lang">
@@ -36,34 +36,34 @@
         <h2 class="card-title search-result-title fs-4 mt-2 mb-1 text-surface">
             <a href="{{permalink}}">{{title}}</a>
         </h2>
-        <div class="indent-2 text-body">
+        <div class="indent-2 text-body px-2">
             {{{content}}}
         </div>
-        <div>
-            {{#authors}}
-            <a href="{{url}}" class="btn btn-sm mb-1 me-1 py-0 pe-1 post-taxonomy post-taxonomy-sm post-author text-body">
-                <i class="fas fa-fw fa-user me-1 text-danger"></i>{{title}}
-            </a>
-            {{/authors}}
-            {{#categories}}
-            <a href="{{url}}" class="btn btn-sm mb-1 me-1 py-0 pe-1 post-taxonomy post-taxonomy-sm post-category text-body">
-                <i class="fas fa-fw fa-folder me-1 text-warning"></i>{{title}}
-            </a>
-            {{/categories}}
-            {{#series}}
-            <a href="{{url}}" class="btn btn-sm mb-1 me-1 py-0 pe-1 post-taxonomy post-taxonomy-sm post-series text-body">
-                <i class="fas fa-fw fa-columns me-1 text-info"></i>{{title}}
-            </a>
-            {{/series}}
-            {{#tags}}
-            <a href="{{url}}"
-                class="btn btn-sm mb-1 me-1 py-0 pe-1 post-taxonomy post-taxonomy-sm post-tag text-body">
-                <i class="fa-solid fa-hashtag me-1 text-secondary"></i>{{title}}
-            </a>
-            {{/tags}}
-            <div class="float-md-end text-end mb-1 me-1">
-                <span class="post-date">{{date}}</span>
-            </div>
+    </div>
+    <div class="post-meta mt-2">
+        {{#authors}}
+        <a href="{{url}}" class="btn btn-sm mb-1 me-1 py-0 pe-1 post-taxonomy post-taxonomy-sm post-author text-body">
+            <i class="fas fa-fw fa-user me-1 text-danger"></i>{{title}}
+        </a>
+        {{/authors}}
+        {{#categories}}
+        <a href="{{url}}" class="btn btn-sm mb-1 me-1 py-0 pe-1 post-taxonomy post-taxonomy-sm post-category text-body">
+            <i class="fas fa-fw fa-folder me-1 text-warning"></i>{{title}}
+        </a>
+        {{/categories}}
+        {{#series}}
+        <a href="{{url}}" class="btn btn-sm mb-1 me-1 py-0 pe-1 post-taxonomy post-taxonomy-sm post-series text-body">
+            <i class="fas fa-fw fa-columns me-1 text-info"></i>{{title}}
+        </a>
+        {{/series}}
+        {{#tags}}
+        <a href="{{url}}"
+            class="btn btn-sm mb-1 me-1 py-0 pe-1 post-taxonomy post-taxonomy-sm post-tag text-body">
+            <i class="fa-solid fa-hashtag me-1 text-secondary"></i>{{title}}
+        </a>
+        {{/tags}}
+        <div class="float-md-end text-end mb-1 me-1">
+            <span class="post-date">{{date}}</span>
         </div>
     </div>
 </div>
