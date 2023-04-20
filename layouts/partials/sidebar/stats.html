@@ -24,12 +24,12 @@
         <div class="row row-cols-5">
             <a class="stat col d-flex flex-column align-items-center" title="{{ i18n "posts" }}" href="{{ absURL "/" }}">
                 <i class="stat-icon fas fa-fw fa-2x fa-file-alt mb-2 text-primary"></i>
-                <span class="stat-count">{{ len $.Site.RegularPages }}</span>
+                <span class="stat-count fw-bold badge text-bg-light text-danger px-1">{{ len $.Site.RegularPages }}</span>
             </a>
             {{- range $key, $value := $.Site.Taxonomies }}
             <a class="stat col d-flex flex-column align-items-center" title="{{ i18n $key }}" href="{{ absLangURL (urlize $key) }}">
                 <i class="stat-icon fas fa-fw fa-2x fa-{{ index $icons $key }} {{ index $colors $key }} mb-2"></i>
-                <span class="stat-count">{{ len $value.ByCount }}</span>
+                <span class="stat-count fw-bold badge text-bg-light text-danger px-1">{{ len $value.ByCount }}</span>
             </a>
             {{- end }}
         </div>

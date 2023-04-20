@@ -1,51 +1,69 @@
 <div class="search-result col-12 border-bottom pb-3 mb-3" id="{{id}}">
-    <div class="card-body">
-        <h2 class="card-title search-result-title fs-4 mt-2 mb-1 text-surface"><a href="{{permalink}}">{{title}}</a></h2>
-        <p class="text-success user-select-all mb-1 text-nowrap overflow-hidden text-truncate">{{permalink}}</p>
-        <div class="post-meta mb-2">
+    <div class="card-body text-body">
+        <div class="mb-2">
             <span class="search-result-score-wrapper">
-                <span class="search-result-score">{{score}}</span>
+                <span class="post-lang">
+                    <i class="fas fa-solid {{langIcon}} p-0 m-0"></i>
+                    {{langName}}
+                </span>
+                <span class="text-body mx-2 align-baseline">I</span>
                 <span class="search-result-score-rating text-nowrap overflow-hidden">
                     <span style="width: calc({{score}}/5*100%);">
                     </span>
                 </span>
+                <span class="search-result-score">
+                    {{score}}
+                </span>
             </span>
-            <span class="post-lang">{{langName}}</span>
-            <span class="post-date">{{date}}</span>
+        </div>
+        <!-- <p class="text-success user-select-all mb-1 text-nowrap overflow-hidden text-truncate">{{permalink}}</p> -->
+        <div class="search-result-content text-surface-secondary mb-2">
+            {{#img}}
+            {{#smallImg}}
+            <picture>
+                <source srcset="{{{largeImg}}}" media="(max-width: 576px)">
+                <img class="img-fluid  rounded-2" alt="{{title}}" src="{{{smallImg}}}" data-src="{{{img}}}"
+                    loading="lazy" />
+            </picture>
+            {{/smallImg}}
+            {{^smallImg}}
+            <picture>
+                <img class="img-fluid rounded-2" alt="{{title}}" src="{{{img}}}" loading="lazy" />
+            </picture>
+            {{/smallImg}}
+            {{/img}}
+        </div>
+        <h2 class="card-title search-result-title fs-4 mt-2 mb-1 text-surface">
+            <a href="{{permalink}}">{{title}}</a>
+        </h2>
+        <div class="indent-2 text-body">
+            {{{content}}}
+        </div>
+        <div>
             {{#authors}}
-                <a href="{{url}}" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-taxonomy-sm">
-                    <i class="fas fa-fw fa-user me-1"></i>{{title}}
-                </a>
+            <a href="{{url}}" class="btn btn-sm mb-1 me-1 py-0 pe-1 post-taxonomy post-taxonomy-sm post-author text-body">
+                <i class="fas fa-fw fa-user me-1 text-danger"></i>{{title}}
+            </a>
             {{/authors}}
             {{#categories}}
-                <a href="{{url}}" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-taxonomy-sm">
-                    <i class="fas fa-fw fa-folder me-1"></i>{{title}}
-                </a>
+            <a href="{{url}}" class="btn btn-sm mb-1 me-1 py-0 pe-1 post-taxonomy post-taxonomy-sm post-category text-body">
+                <i class="fas fa-fw fa-folder me-1 text-warning"></i>{{title}}
+            </a>
             {{/categories}}
             {{#series}}
-                <a href="{{url}}" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-taxonomy-sm">
-                    <i class="fas fa-fw fa-columns me-1"></i>{{title}}
-                </a>
+            <a href="{{url}}" class="btn btn-sm mb-1 me-1 py-0 pe-1 post-taxonomy post-taxonomy-sm post-series text-body">
+                <i class="fas fa-fw fa-columns me-1 text-info"></i>{{title}}
+            </a>
             {{/series}}
             {{#tags}}
-                <a href="{{url}}" class="btn btn-sm btn-secondary mb-1 me-2 py-0 pe-1 post-taxonomy post-taxonomy-sm">{{title}}</a>
+            <a href="{{url}}"
+                class="btn btn-sm mb-1 me-1 py-0 pe-1 post-taxonomy post-taxonomy-sm post-tag text-body">
+                <i class="fa-solid fa-hashtag me-1 text-secondary"></i>{{title}}
+            </a>
             {{/tags}}
+            <div class="float-md-end text-end mb-1 me-1">
+                <span class="post-date">{{date}}</span>
             </div>
-            <div class="search-result-content text-surface-secondary mb-2">
-            {{#img}}
-                {{#smallImg}}
-                <picture>
-                    <source srcset="{{{largeImg}}}" media="(max-width: 576px)">
-                    <img class="img-fluid" alt="{{title}}" src="{{{smallImg}}}" data-src="{{{img}}}" loading="lazy"/>
-                </picture>
-                {{/smallImg}}
-                {{^smallImg}}
-                <picture>
-                    <img class="img-fluid" alt="{{title}}"src="{{{img}}}" loading="lazy"/>
-                </picture>
-                {{/smallImg}}
-            {{/img}}
-            {{{content}}}
-            </div>
+        </div>
     </div>
 </div>

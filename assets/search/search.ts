@@ -224,6 +224,10 @@ export class Search {
         }...`;
       }
       const id = `searchResult${idx}`;
+      const icons = {
+        "En": "fa-earth-americas",
+        "中": "fa-earth-asia"
+      }
       this.resultsElement.insertAdjacentHTML(
         'beforeend',
         Mustache.render(this.tmplResult, {
@@ -241,6 +245,7 @@ export class Search {
           score: Search.formatScore(result.score),
           date: result.item.date,
           langName: result.item.langName,
+          langIcon: icons[result.item.langName || "中"],
           url() {
             return Search.normalizeTaxonomy;
           },
