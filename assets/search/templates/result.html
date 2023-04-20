@@ -1,4 +1,4 @@
-<div class="search-result col-12 mb-0" id="{{id}}">
+<div class="search-result col-12 mb-3" id="{{id}}">
     <div class="card-body text-body px-2">
         <div class="mb-2">
             <span class="search-result-score-wrapper">
@@ -34,13 +34,16 @@
             {{/img}}
         </div>
         <h2 class="card-title search-result-title fs-4 mt-2 mb-1 text-surface">
-            <a href="{{permalink}}">{{title}}</a>
+            <a href="{{permalink}}">
+                {{title}}
+                <i class="fa-solid fa-link text-primary fs-6"></i>
+            </a>
         </h2>
         <div class="indent-2 text-body px-2">
             {{{content}}}
         </div>
     </div>
-    <div class="post-meta mt-2">
+    <div class="post-meta mt-2 mb-0">
         {{#authors}}
         <a href="{{url}}" class="btn btn-sm mb-1 me-1 py-0 pe-1 post-taxonomy post-taxonomy-sm post-author text-body">
             <i class="fas fa-fw fa-user me-1 text-danger"></i>{{title}}
