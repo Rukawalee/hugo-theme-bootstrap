@@ -3,9 +3,9 @@
     {{- $taxonomies := ($.GetTerms $key).ByTitle }}
     {{- if eq $.Site.Params.taxonomySortingMethod "popularity" }}{{ $taxonomies = (sort $taxonomies ".Data.Pages"
     "desc")}}{{ end }}
-    {{- range $taxonomies -}}
+    {{- range $offset, $taxonomy := $taxonomies -}}
     <a href="{{ .RelPermalink }}"
-      class="btn btn-sm mb-1 me-1 py-0 pe-1 post-taxonomy post-taxonomy-sm post-{{ $key | singularize }} text-body">
+      class="btn btn-sm mb-1 me-1 py-0 pe-1 post-taxonomy post-taxonomy-sm post-{{ $key | singularize }} text-body {{ if eq $offset 0 }} ps-0 {{ end }}">
       {{- if eq $key "series" }}
       <i class="fas fa-fw fa-columns me-1 text-info"></i>
       {{- else if eq $key "categories" }}
