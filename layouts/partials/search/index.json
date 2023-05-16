@@ -23,10 +23,10 @@
       {{- $featured := partialCached "functions/thumbnail" . . }}
       {{- with $featured -}}
         {{- $smallImage := .Resize "180x" -}}
-        {{- $smallImg = $smallImage.RelPermalink -}}
+        {{- $smallImg = $smallImage.Permalink -}}
         {{- $largeImage := .Resize "500x" -}}
-        {{- $largeImg = $largeImage.RelPermalink -}}
-        {{- $img = .RelPermalink -}}
+        {{- $largeImg = $largeImage.Permalink -}}
+        {{- $img = .Permalink -}}
       {{- end -}}
     {{- end -}}
     {{- $item := (dict 
@@ -34,7 +34,7 @@
       "langName" .Language.LanguageName
       "title" $title 
       "content" .Plain 
-      "permalink" .RelPermalink
+      "permalink" .Permalink
       "date" $date 
       "timestamp" .Date.Unix
       "img" $img 
@@ -44,7 +44,7 @@
     {{- range $taxonomyName, $value := $.Site.Taxonomies }}
       {{- $terms := slice }}
       {{- range $page.GetTerms $taxonomyName }}
-        {{- $terms = $terms | append (dict "title" .Title "url" .RelPermalink) }}
+        {{- $terms = $terms | append (dict "title" .Title "url" .Permalink) }}
       {{- end }}
       {{- $item = merge $item (dict
           $taxonomyName $terms

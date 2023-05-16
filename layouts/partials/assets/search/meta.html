@@ -36,9 +36,9 @@
   {{- end -}}
   {{- $page.Scratch.Set "indexPage" . }}
   {{- $index := $tmpl | resources.ExecuteAsTemplate $indexURL $page }}
-  {{- $searchIndies = $searchIndies | append $index.RelPermalink }}
+  {{- $searchIndies = $searchIndies | append $index.Permalink }}
   {{- if $preload }}
-  <link rel="preload" href="{{ $index.RelPermalink }}" as="fetch" type="application/json" crossorigin="anonymous">
+  <link rel="preload" href="{{ $index.Permalink }}" as="fetch" type="application/json" crossorigin="anonymous">
   {{- end }}
 {{- end }}
 
@@ -47,6 +47,6 @@
   window.searchPaginate = parseInt('{{ default 10 .Site.Params.search.paginate }}');
   window.fuseOptions = JSON.parse('{{ $options | jsonify | safeHTML }}');
   window.searchIndies = JSON.parse('{{ $searchIndies | jsonify }}');
-  window.searchMetaIndex = '{{ $meta.RelPermalink }}';
+  window.searchMetaIndex = '{{ $meta.Permalink }}';
   window.searchMaxResults = '{{ default 100 .Site.Params.search.maxResults }}';
 </script>

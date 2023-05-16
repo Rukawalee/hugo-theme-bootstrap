@@ -12,7 +12,7 @@
             {{- partial "author/avatar" .Page }}
             <div class="text-center text-md-start flex-grow-1 ms-0 ms-md-4">
               <h2 class="taxonomy-title card-title author-name fs-4 mb-2 text-surface">
-                <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
+                <a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a>
               </h2>
               {{- with .Page.Description }}
               <div class="author-description mb-2">{{ . }}</div>
@@ -25,7 +25,7 @@
           </div>
           {{- else }}
           <span class="fw-bold">
-            <a href="{{ .Page.RelPermalink }}">
+            <a href="{{ .Page.Permalink }}">
               {{ .Page.Title }}
               <span class="fa-solid fa-link text-primary"></span>
             </a>
@@ -49,7 +49,7 @@
           {{- end -}}
           {{- if gt $count $postCount -}}
           <div class="text-center fs-5 mt-3">
-            <a class="post-title" href="{{ .Page.RelPermalink }}">...</a>
+            <a class="post-title" href="{{ .Page.Permalink }}">...</a>
           </div>
           {{- end -}}
         </div>
