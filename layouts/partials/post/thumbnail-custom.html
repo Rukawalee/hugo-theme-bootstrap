@@ -47,10 +47,10 @@
 {{ end }}
 {{- $largeImage := .Resize "520x" -}}
 <picture>
-  <source srcset="{{ $largeImage.Permalink }}" media="(max-width: 576px)" height="{{ $largeImage.Height }}"
+  <source srcset="{{ $largeImage.RelPermalink }}" media="(max-width: 576px)" height="{{ $largeImage.Height }}"
     width="{{ $largeImage.Width }}">
   <img class="img-fluid rounded-2" height="{{ $smallImage.Height }}" width="{{ $smallImage.Width }}" alt="{{ .Title }}"
-    src="{{ $smallImage.Permalink  }}" data-src="{{ $featured.Permalink }}" loading="lazy" />
+    src="{{ $smallImage.RelPermalink  }}" data-src="{{ $featured.RelPermalink }}" loading="lazy" />
 </picture>
 {{- end -}}
 {{- end -}}

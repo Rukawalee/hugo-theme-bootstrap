@@ -21,7 +21,7 @@
 </li>
 {{- else -}}
 <li class="breadcrumb-item text-surface">
-  <a href="{{ .p1.Permalink }}" class="btn btn-sm btn-outline-primary fs-6 py-0">
+  <a href="{{ .p1.RelPermalink }}" class="btn btn-sm btn-outline-primary fs-6 py-0">
     {{ if .p1.IsHome }}{{ i18n "home" }}{{ else }}{{ .p1.Title }}{{ end }}
   </a>
 </li>
