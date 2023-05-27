@@ -1,6 +1,6 @@
 {{ $paginator := .Paginator }}
 {{ $totalPages := $paginator.TotalPages }}
-{{ $remainPage := ($.Site.Params.paginator).Get "remainPage" }}
+{{ $remainPage := $.Site.Params.paginator.remainPage }}
 {{ $currPageNumber := $paginator.PageNumber }}
 <div class="table-responsive mb-2 {{ if and (gt $currPageNumber 1) (lt $currPageNumber $totalPages) }} text-center {{ else if eq $currPageNumber $totalPages }} text-end {{ end }} clearfix">
   {{ if gt $totalPages 1 }}
