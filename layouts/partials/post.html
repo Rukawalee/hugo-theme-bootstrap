@@ -1,24 +1,25 @@
 {{- partial "post/panel" . -}}
-<article class="row card component mb-4 post">
-  <div class="card-header ">
-    <h1 class="card-title post-title my-2">{{ partial "helpers/title" . }}</h1>
-  </div>
+<article class="row card component mb-4 post rounded-4">
   <div class="card-body">
+    <h1 class="card-title post-title mt-2 mb-4">
+      {{ partial "helpers/title" . }}
+    </h1>
     {{- partial "post/meta" . -}}
+    <hr />
     {{- partial "post/featured-image" . -}}
     {{- partial "hooks/content-begin" . -}}
     {{- if eq "content" .Site.Params.tocPosition -}}
-      {{- partial "post/toc" . -}}
+    {{- partial "post/toc" . -}}
     {{- else }}
-      {{- partial "post/toc-wrapper" . -}}
+    {{- partial "post/toc-wrapper" . -}}
     {{- end -}}
     {{- partial "post/share" . -}}
     {{- partial "post/content" . -}}
     {{- partial "post/reward" . -}}
     {{- partial "hooks/content-end" . -}}
   </div>
-  {{- partial "post/nav" . -}}
+  {{- partial "post/copyright/index-custom" . -}}
+  <!-- {{- partial "post/nav" . -}} -->
 </article>
-{{- partial "post/copyright/index" . -}}
 {{- partial "post/related-posts" . -}}
 {{- partial "post/comments" . -}}
